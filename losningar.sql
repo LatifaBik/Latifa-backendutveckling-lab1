@@ -52,5 +52,18 @@ SELECT
         END AS gender
 FROM account;
 
+-- uppgift 6
+-- Kontrollera först vilka rader som ska tas bort
+
+SELECT *
+FROM account
+WHERE MOD(SUBSTRING(ssn, -2, 1), 2) = 0
+  AND LEFT(ssn, 2) < '70';
+
+-- Att ta bort raderna
+DELETE FROM account
+WHERE MOD(SUBSTRING(ssn, -2, 1), 2) = 0
+  AND LEFT(ssn, 2) < '70';
+
 
 select * from account;
