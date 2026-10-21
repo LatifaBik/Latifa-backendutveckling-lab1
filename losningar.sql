@@ -26,6 +26,17 @@ SET operator = REPLACE(operator, ' ', '');
 UPDATE moon_mission
 SET operator = REPLACE(operator, ' ', '');
 
-
+-- Kontrollera resultat--
 SELECT operator FROM successful_mission;
 SELECT operator FROM moon_mission;
+
+-- Uppgift 4
+-- Kontrollera först vilka rader som ska tas bort --
+select * from successful_mission
+where launch_date >= '2010-01-01';
+
+-- Ta bort raderna --
+delete from successful_mission
+     where launch_date >= '2010-01-01';
+
+select * from successful_mission;
