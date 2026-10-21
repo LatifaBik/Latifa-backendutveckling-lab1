@@ -39,4 +39,18 @@ where launch_date >= '2010-01-01';
 delete from successful_mission
      where launch_date >= '2010-01-01';
 
-select * from successful_mission;
+-- uppguft 5
+SELECT
+    user_id,
+    name AS username,
+    password,
+    CONCAT(first_name, ' ', last_name) AS name,
+    ssn,
+    CASE
+        WHEN MOD(SUBSTRING(ssn, -2, 1), 2) = 0 THEN 'female'
+        ELSE 'male'
+        END AS gender
+FROM account;
+
+
+select * from account;
