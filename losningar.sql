@@ -18,3 +18,14 @@ ALTER TABLE successful_mission
 
 -- Kontrollera att mission_id är primärnyckel och har auto_increment
 show columns from successful_mission;
+
+-- Uppgift 3
+UPDATE successful_mission
+SET operator = REPLACE(operator, ' ', '');
+
+UPDATE moon_mission
+SET operator = REPLACE(operator, ' ', '');
+
+
+SELECT operator FROM successful_mission;
+SELECT operator FROM moon_mission;
