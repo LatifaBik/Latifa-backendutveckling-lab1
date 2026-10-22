@@ -97,3 +97,15 @@ CREATE TABLE author (
     last_name VARCHAR(255) NOT NULL,
     birth_date DATE NOT NULL
 );
+
+-- Böcker
+CREATE TABLE book (
+    isbn CHAR(13) NOT NULL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    language VARCHAR(255) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL CHECK (price >= 0),
+    publication_date DATE NOT NULL,
+    author_id INT NOT NULL,
+    CHECK (isbn REGEXP '^[0-9]{13}$'),
+    FOREIGN KEY (author_id) REFERENCES author(id)
+);
