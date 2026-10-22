@@ -1,5 +1,7 @@
--- Moon Missions
+
 use laboration1;
+-- Moon Missions
+
 -- kontrollera uppdraget__
 select * from moon_mission;
 -- Uppgift 1
@@ -81,4 +83,17 @@ SELECT
 FROM account
 GROUP BY gender;
 
-select * from account;
+
+-- Book Store
+
+DROP DATABASE IF EXISTS bookstore;
+CREATE DATABASE bookstore;
+USE bookstore;
+
+-- Författare
+CREATE TABLE author (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    birth_date DATE NOT NULL
+);
