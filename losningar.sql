@@ -65,5 +65,20 @@ DELETE FROM account
 WHERE MOD(SUBSTRING(ssn, -2, 1), 2) = 0
   AND LEFT(ssn, 2) < '70';
 
+-- uppgift 7
+SELECT
+    CASE
+        WHEN MOD(SUBSTRING(ssn, -2, 1), 2) = 0 THEN 'female'
+        ELSE 'male'
+        END AS gender,
+    AVG(
+            TIMESTAMPDIFF(
+                    YEAR,
+                    STR_TO_DATE(CONCAT('19', LEFT(ssn, 6)), '%Y%m%d'),
+                    CURDATE()
+            )
+    ) AS average_age
+FROM account
+GROUP BY gender;
 
 select * from account;
