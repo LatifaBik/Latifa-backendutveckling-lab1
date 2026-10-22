@@ -116,3 +116,11 @@ CREATE TABLE book (
     FOREIGN KEY (author_id) REFERENCES author(id),
     FOREIGN KEY (language_id) REFERENCES language(id)
 );
+
+-- bookstore
+
+create table bookstore (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    boutique_name VARCHAR(255) NOT NULL,
+    city VARCHAR(255) NOT NULL
+    );
