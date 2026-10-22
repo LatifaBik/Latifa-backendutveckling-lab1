@@ -98,7 +98,7 @@ CREATE TABLE author (
     birth_date DATE NOT NULL
 );
 
--- Böcker
+-- Boöcker
 
 CREATE TABLE language (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -124,3 +124,14 @@ create table bookstore (
     boutique_name VARCHAR(255) NOT NULL,
     city VARCHAR(255) NOT NULL
     );
+
+-- inventory
+
+CREATE TABLE inventory (
+    store_id INT NOT NULL,
+    isbn CHAR(13) NOT NULL,
+    amount INT NOT NULL CHECK (amount >= 0),
+    PRIMARY KEY (store_id, isbn),
+    FOREIGN KEY (store_id) REFERENCES bookstore(id),
+    FOREIGN KEY (isbn) REFERENCES book(isbn)
+);
