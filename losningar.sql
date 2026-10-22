@@ -99,13 +99,20 @@ CREATE TABLE author (
 );
 
 -- Böcker
+
+CREATE TABLE language (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE
+);
+
 CREATE TABLE book (
     isbn CHAR(13) NOT NULL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-    language VARCHAR(255) NOT NULL,
+    language_id INT NOT NULL,
     price DECIMAL(10, 2) NOT NULL CHECK (price >= 0),
     publication_date DATE NOT NULL,
     author_id INT NOT NULL,
     CHECK (isbn REGEXP '^[0-9]{13}$'),
-    FOREIGN KEY (author_id) REFERENCES author(id)
+    FOREIGN KEY (author_id) REFERENCES author(id),
+    FOREIGN KEY (language_id) REFERENCES language(id)
 );
