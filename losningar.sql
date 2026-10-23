@@ -135,3 +135,59 @@ CREATE TABLE inventory (
     FOREIGN KEY (store_id) REFERENCES bookstore(id),
     FOREIGN KEY (isbn) REFERENCES book(isbn)
 );
+
+-- Att lägga till data
+
+USE bookstore;
+
+-- Författare
+INSERT INTO author (first_name, last_name, birth_date)
+VALUES
+    ('Anna', 'Andersson', '1980-05-12'),
+    ('Erik', 'Svensson', '1975-09-23');
+
+-- Språk
+INSERT INTO language (name)
+VALUES ('Svenska'), ('Engelska');
+
+-- Böcker med påhittade titlar för övningen
+INSERT INTO book
+(isbn, title, language_id, price, publication_date, author_id)
+VALUES
+    ('9780140328721', 'Skogens hemlighet', 1, 149.00, '2020-03-15', 1),
+    ('9780306406157', 'En lång resa', 2, 199.00, '2022-08-20', 2);
+
+-- Butiker
+INSERT INTO bookstore (boutique_name, city)
+VALUES
+    ('Bokhörnan', 'Stockholm'),
+    ('Läsglädje', 'Uppsala');
+
+-- Antal exemplar av varje bok i varje butik
+INSERT INTO inventory (store_id, isbn, amount)
+VALUES
+    (1, '9780140328721', 5),
+    (1, '9780306406157', 3),
+    (2, '9780140328721', 8),
+    (2, '9780306406157', 4);
+
+
+-- Vy: en rad per författare
+CREATE VIEW total_author_book_value AS
+SELECT
+    CONCAT(a.first_name, ' ', a.last_name) AS name,
+    TIMESTAMPDIFF(YEAR, a.birth_date, CURDATE()) AS age,
+    COUNT(DISTINCT b.isbn) AS book_title_count,
+    COALESCE(SUM(b.price * i.amount), 0) AS inventory_value
+FROM author a
+         LEFT JOIN book b ON a.id = b.author_id
+         LEFT JOIN inventory i ON b.isbn = i.isbn
+GROUP BY a.id, a.first_name, a.last_name, a.birth_date;
+
+
+-- Kontrollera resultatet
+
+SELECT * FROM total_author_book_value;
+SELECT * FROM bookstore.total_author_book_value;
+
+SELECT * FROM bookstore.author;
