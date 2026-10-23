@@ -189,5 +189,47 @@ GROUP BY a.id, a.first_name, a.last_name, a.birth_date;
 
 SELECT * FROM total_author_book_value;
 SELECT * FROM bookstore.total_author_book_value;
-
 SELECT * FROM bookstore.author;
+
+
+-- Skapa två separata konton
+CREATE USER 'bookstore_developer'@'localhost'
+    IDENTIFIED BY 'root';
+
+CREATE USER 'bookstore_web'@'localhost'
+    IDENTIFIED BY 'root';
+
+-- Utvecklaren får läsa och ändra innehållet
+GRANT SELECT, INSERT, UPDATE, DELETE
+    ON bookstore.*
+    TO 'bookstore_developer'@'localhost';
+
+-- Utvecklaren får hantera de angivna tabellernas struktur
+GRANT CREATE, ALTER, DROP, INDEX, REFERENCES
+    ON bookstore.author
+    TO 'bookstore_developer'@'localhost';
+
+GRANT CREATE, ALTER, DROP, INDEX, REFERENCES
+    ON bookstore.language
+    TO 'bookstore_developer'@'localhost';
+
+GRANT CREATE, ALTER, DROP, INDEX, REFERENCES
+    ON bookstore.book
+    TO 'bookstore_developer'@'localhost';
+
+GRANT CREATE, ALTER, DROP, INDEX, REFERENCES
+    ON bookstore.bookstore
+    TO 'bookstore_developer'@'localhost';
+
+GRANT CREATE, ALTER, DROP, INDEX, REFERENCES
+    ON bookstore.inventory
+    TO 'bookstore_developer'@'localhost';
+
+-- Webbservern får endast utföra CRUD
+GRANT SELECT, INSERT, UPDATE, DELETE
+    ON bookstore.*
+    TO 'bookstore_web'@'localhost';
+
+-- Kontrollera behörigheterna
+SHOW GRANTS FOR 'bookstore_developer'@'localhost';
+SHOW GRANTS FOR 'bookstore_web'@'localhost';
